@@ -1,6 +1,6 @@
 package com.howwow.persistence.repositories.impl;
 
-import com.howwow.exception.BookAlreadyExistsException;
+import com.howwow.exception.BookCreationException;
 import com.howwow.persistence.entities.Book;
 import com.howwow.persistence.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +14,12 @@ import java.util.stream.Collectors;
 public class BookRepositoryImpl implements BookRepository {
     private final Map<String, Book> books;
 
-
     @Override
-    public Book create(Book book) {
+    public void create(Book book) {
         if (books.containsKey(book.getIsbn())) {
-            throw new BookAlreadyExistsException("Книга с заданным ISBN уже существует");
+            throw new BookCreationException("Book with ISBN " + book.getIsbn() + " already exists");
         }
         books.put(book.getIsbn(), book);
-        return book;
     }
 
     @Override
@@ -44,7 +42,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public boolean removeByIsbn(String isbn) {
-        return books.remove(isbn) != null;
+    public void removeByIsbn(String isbn) {
+        books.remove(isbn);
     }
 }

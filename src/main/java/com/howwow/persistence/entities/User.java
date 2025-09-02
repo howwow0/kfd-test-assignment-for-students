@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public abstract class User {
-    protected UUID userId;
+    protected String userId;
     protected String name;
     protected String email;
 
