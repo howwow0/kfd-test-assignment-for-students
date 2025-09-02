@@ -1,7 +1,13 @@
 package com.howwow;
 
+import com.howwow.ui.*;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        MenuCreator menuCreator = new MenuCreator();
+        State runningState = menuCreator.createMenu();
+        while (runningState != null) {
+            runningState = runningState.runState();
+        }
     }
 }
