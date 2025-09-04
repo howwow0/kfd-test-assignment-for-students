@@ -1,7 +1,9 @@
 package com.howwow.service.impl;
 
+import com.howwow.persistence.entities.Book;
 import com.howwow.persistence.entities.BorrowingRecord;
 import com.howwow.persistence.entities.User;
+import com.howwow.persistence.repositories.BookRepository;
 import com.howwow.persistence.repositories.BorrowingRecordRepository;
 import com.howwow.persistence.repositories.UserRepository;
 import com.howwow.service.BorrowingRecordService;
@@ -23,6 +25,7 @@ public class BorrowingRecordServiceImpl implements BorrowingRecordService {
             .withZone(ZoneId.systemDefault());
     private final BorrowingRecordRepository borrowingRecordRepository;
     private final UserRepository userRepository;
+    private final BookRepository bookRepository;
     private final Scanner scanner;
 
     @Override
@@ -35,6 +38,12 @@ public class BorrowingRecordServiceImpl implements BorrowingRecordService {
         Optional<User> userOpt = userRepository.findByUserId(borrowingRecord.getUserId());
         if (userOpt.isEmpty()) {
             System.out.println("User with user id " + borrowingRecord.getUserId() + " not found. Try again.");
+            return;
+        }
+
+        Optional<Book> bookOpt = bookRepository.findByIsbn(borrowingRecord.getIsbn());
+        if (bookOpt.isEmpty()) {
+            System.out.println("Book with ISBN " + borrowingRecord.getIsbn() + " not found. Try again.");
             return;
         }
 

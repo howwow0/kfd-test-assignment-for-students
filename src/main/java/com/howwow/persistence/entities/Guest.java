@@ -16,8 +16,4 @@ public class Guest extends User {
         return 7;
     }
 
-    @Override
-    public double getFinePerDay() {
-        return 0.7;
-    }
 }

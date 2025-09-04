@@ -24,15 +24,19 @@ public class App {
         BookRepository bookRepository = new BookRepositoryImpl(new HashMap<>());
         UserRepository userRepository = new UserRepositoryImpl(new HashMap<>());
         BorrowingRecordRepository borrowingRecordRepository = new BorrowingRecordRepositoryImpl(new ArrayList<>());
-        Scanner scanner = new Scanner(System.in);
-        BookService bookService = new BookServiceImpl(bookRepository, scanner);
-        UserService userService = new UserServiceImpl(userRepository, scanner);
-        BorrowingRecordService borrowingRecordService = new BorrowingRecordServiceImpl(borrowingRecordRepository, userRepository, scanner);
-        MenuCreator menuCreator = new MenuCreator(bookService, userService, borrowingRecordService);
-        State runningState = menuCreator.createMenu();
+        State runningState = getRunningState(bookRepository, userRepository, borrowingRecordRepository);
         while (runningState != null) {
             runningState = runningState.runState();
         }
+    }
+
+    private static State getRunningState(BookRepository bookRepository, UserRepository userRepository, BorrowingRecordRepository borrowingRecordRepository) {
+        Scanner scanner = new Scanner(System.in);
+        BookService bookService = new BookServiceImpl(bookRepository, scanner);
+        UserService userService = new UserServiceImpl(userRepository, scanner);
+        BorrowingRecordService borrowingRecordService = new BorrowingRecordServiceImpl(borrowingRecordRepository, userRepository, bookRepository, scanner);
+        MenuCreator menuCreator = new MenuCreator(bookService, userService, borrowingRecordService);
+        return menuCreator.createMenu();
     }
 
 }

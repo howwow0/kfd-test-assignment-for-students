@@ -15,8 +15,4 @@ public class Faculty extends User{
         return 30;
     }
 
-    @Override
-    public double getFinePerDay() {
-        return 0.2;
-    }
 }

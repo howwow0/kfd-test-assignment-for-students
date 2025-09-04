@@ -17,8 +17,4 @@ public class Student extends User {
         return 14;
     }
 
-    @Override
-    public double getFinePerDay() {
-        return 0.5;
-    }
 }

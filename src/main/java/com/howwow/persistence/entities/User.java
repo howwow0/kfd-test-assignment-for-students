@@ -16,6 +16,4 @@ public abstract class User {
     public abstract int getMaxBooks();
 
     public abstract int getBorrowDays();
-
-    public abstract double getFinePerDay();
 }
