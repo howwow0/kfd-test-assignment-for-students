@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'io.freefair.lombok' version '8.6'
 }
 
@@ -11,6 +12,15 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+}
+
+application {
+    mainClass = 'com.howwow.App'
+    applicationDefaultJvmArgs = ['-Dorg.gradle.console=verbose']
+}
+
+run {
+    standardInput = System.in
 }
 
 configurations {
@@ -28,6 +38,11 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 }
 
+tasks.named('jar') {
+    manifest {
+        attributes('Main-Class': 'com.howwow.App')
+    }
+}
 
 tasks.named('test') {
     useJUnitPlatform()
