@@ -7,11 +7,6 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 
 /**
- * @author HowWow
- * @Date 02.09.2025
- */
-
-/**
  * Базовый класс машины состояний меню
  */
 public abstract class MenuState implements State {

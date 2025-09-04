@@ -1,13 +1,10 @@
 package com.howwow.persistence.entities;
 
 
-import java.util.UUID;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class Guest extends User {
-
-    public Guest(UUID userId, String name, String email) {
-        super(userId, name, email);
-    }
 
     @Override
     public int getMaxBooks() {

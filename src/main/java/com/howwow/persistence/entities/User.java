@@ -1,15 +1,14 @@
 package com.howwow.persistence.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.UUID;
+import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class User {
+    @EqualsAndHashCode.Include
     protected String userId;
     protected String name;
     protected String email;

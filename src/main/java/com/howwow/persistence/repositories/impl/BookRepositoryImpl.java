@@ -25,14 +25,14 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public List<Book> findByTitle(String title) {
         return books.values().stream()
-                .filter(book -> book.getTitle().equals(title))
+                .filter(book -> book.getTitle().contains(title))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Book> findByAuthor(String author) {
         return books.values().stream()
-                .filter(book -> book.getAuthor().equals(author))
+                .filter(book -> book.getAuthor().contains(author))
                 .collect(Collectors.toList());
     }
 

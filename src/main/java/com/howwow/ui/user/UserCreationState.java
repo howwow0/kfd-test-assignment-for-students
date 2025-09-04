@@ -1,19 +1,19 @@
-package com.howwow.ui.book;
+package com.howwow.ui.user;
 
 import com.howwow.exception.BookCreationException;
-import com.howwow.service.BookService;
+import com.howwow.service.UserService;
 import com.howwow.ui.State;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class BookCreationState implements State {
-    private final BookService bookService;
+public class UserCreationState implements State {
+    private final UserService userService;
     private final State backState;
 
     @Override
     public State runState() {
         try {
-            bookService.createBook();
+            userService.registerUser();
             return backState;
         } catch (BookCreationException e) {
             System.out.println(e.getMessage());

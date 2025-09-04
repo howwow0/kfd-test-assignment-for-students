@@ -1,16 +1,21 @@
 package com.howwow.ui;
 
 import com.howwow.service.BookService;
+import com.howwow.service.BorrowingRecordService;
+import com.howwow.service.UserService;
 import com.howwow.ui.book.*;
+import com.howwow.ui.borrowingrecord.BorrowingRecordBorrowState;
+import com.howwow.ui.borrowingrecord.BorrowingRecordOverdueState;
+import com.howwow.ui.borrowingrecord.BorrowingRecordReturnState;
+import com.howwow.ui.user.UserCreationState;
+import com.howwow.ui.user.UserDeletionState;
 import lombok.RequiredArgsConstructor;
 
-/**
- * @author HowWow
- * @Date 02.09.2025
- */
 @RequiredArgsConstructor
 public class MenuCreator {
     private final BookService bookService;
+    private final UserService userService;
+    private final BorrowingRecordService borrowingRecordService;
 
     /**
      * Фабричный метод создания дефолтного меню.
@@ -34,13 +39,14 @@ public class MenuCreator {
 
 
         MenuState usersConfigurableMenuState = new ConfigurableMenuState();
-        usersConfigurableMenuState.addMenuItem(1, new MenuItem("Add User"), () -> null);
-        usersConfigurableMenuState.addMenuItem(2, new MenuItem("Remove User"), () -> null);
-        usersConfigurableMenuState.addMenuItem(4, new MenuItem("Back to main menu"), configurableMenuState::runState);
+        usersConfigurableMenuState.addMenuItem(1, new MenuItem("Add User"), () -> new UserCreationState(userService, usersConfigurableMenuState));
+        usersConfigurableMenuState.addMenuItem(2, new MenuItem("Remove User"), () -> new UserDeletionState(userService, usersConfigurableMenuState));
+        usersConfigurableMenuState.addMenuItem(3, new MenuItem("Back to main menu"), configurableMenuState::runState);
 
         MenuState borrowingOperationsConfigurableMenuState = new ConfigurableMenuState();
-        borrowingOperationsConfigurableMenuState.addMenuItem(1, new MenuItem("Borrow Book"), () -> null);
-        borrowingOperationsConfigurableMenuState.addMenuItem(2, new MenuItem("Return Book"), () -> null);
+        borrowingOperationsConfigurableMenuState.addMenuItem(1, new MenuItem("Borrow Book"), () -> new BorrowingRecordBorrowState(borrowingRecordService, borrowingOperationsConfigurableMenuState));
+        borrowingOperationsConfigurableMenuState.addMenuItem(2, new MenuItem("Return Book"), () -> new BorrowingRecordReturnState(borrowingRecordService, borrowingOperationsConfigurableMenuState));
+        borrowingOperationsConfigurableMenuState.addMenuItem(3, new MenuItem("Overdue Books"), () -> new BorrowingRecordOverdueState(borrowingRecordService, borrowingOperationsConfigurableMenuState));
         borrowingOperationsConfigurableMenuState.addMenuItem(4, new MenuItem("Back to main menu"), configurableMenuState::runState);
 
         configurableMenuState.addMenuItem(1, new MenuItem("Book Management"), booksConfigurableMenuState::runState);
